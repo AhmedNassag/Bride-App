@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Package;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
 
 class PackageController extends Controller
 {

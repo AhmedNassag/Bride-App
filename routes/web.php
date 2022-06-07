@@ -29,10 +29,11 @@ Route::group(['middleware'=>['auth','admin']],function () {
 
     //admin routes
     Route::get('/admins','Admin\AdminController@index');
+    Route::get('/admin-show/{id}','Admin\AdminController@show');
     Route::get('/admin-create','Admin\AdminController@create');
     Route::post('/admin-store','Admin\AdminController@store');
     Route::get('/admin-edit/{id}','Admin\AdminController@edit');
-    Route::put('/admin-update/{id}','Admin\AdminController@update');
+    Route::post('/admin-update/{id}','Admin\AdminController@update');
     Route::delete('/admin-delete/{id}','Admin\AdminController@delete');
 
     //makeup artist routes

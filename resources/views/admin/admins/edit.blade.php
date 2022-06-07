@@ -17,7 +17,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('admin-store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin-update/'.$admin->id)}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="row">
                             <div class="col-md-12">

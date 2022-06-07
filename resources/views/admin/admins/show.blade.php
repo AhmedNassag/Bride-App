@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Dashboard
+    Admin
 @endsection
 
 
@@ -12,8 +12,8 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        Dashboard
-                        <a href="{{url('user-create')}}" class="btn btn-primary float-right py-2">ADD</a>
+                        Admin
+                        <a href="{{url('admin-create')}}" class="btn btn-primary float-right py-2">ADD</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -24,33 +24,26 @@
                                 <th>Name</th>
                                 <th>Avatar</th>
                                 <th>Role</th>
+                                <th>City</th>
+                                <th>Location</th>
                                 <th>Email</th>
                                 <th>EDIT</th>
                                 <th>DELETE</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i=0; @endphp
-                            @foreach($users as $row)
-                            @php $i++; @endphp
                                 <tr>
                                     <input type="hidden" class="userDelBtn" value="{{$row->id}}">
-                                    <td>{{$i}}</td>
-                                    <td><a href="{{url('admin-show/'.$row->id)}}">{{$row->name}}</td></a>
-                                    <td><img src="{{asset('assets/img/avatar/'.$row->avatar)}}" height="55px" width="55px"></td>
+                                    <td>1</td>
+                                    <td>{{$row->name}}</td>
+                                    <td><img src="{{asset('assets/img/avatar/'.$admin->avatar)}}" height="55px" width="55px"></td>
+                                    <td>Admin</td>
+                                    <td>{{$admin->email}}</td>
                                     <td>
-                                        <?php
-                                            if($row->role == 0) {echo'Admin';}
-                                            elseif($row->role == 1) {echo'Makeup Artist';}
-                                            else {echo'User';}
-                                        ?>
-                                    </td>
-                                    <td>{{$row->email}}</td>
-                                    <td>
-                                        <a href="{{url('user-edit/'.$row->id)}}" class="btn btn-info">EDIT</a>
+                                        <a href="{{url('admin-edit/'.$admin->id)}}" class="btn btn-info">EDIT</a>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger userDeleteBtn">DELETE</button>
+                                        <button type="button" class="btn btn-danger adminDeleteBtn">DELETE</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -67,10 +60,10 @@
     <script>
         $(document).ready(function ()
         {
-            $('.userDeleteBtn').click(function(e)
+            $('.adminDeleteBtn').click(function(e)
             {
                 e.preventDefault();
-                var deleteId = $(this).closest("tr").find(".userDelBtn").val();
+                var deleteId = $(this).closest("tr").find(".adminDelBtn").val();
                 swal
                 ({
                     title: "Are you sure?",
@@ -90,7 +83,7 @@
                         };
                         $.ajax({
                             type: "DELETE",
-                            url : "/user-delete/"+deleteId,
+                            url : "/admin-delete/"+deleteId,
                             data: data,
                             success: function (response)
                             {

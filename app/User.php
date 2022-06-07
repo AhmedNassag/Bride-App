@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Localization;
 use App\Models\Martist;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,9 +20,9 @@ class User extends Authenticatable
     protected $fillable = ['name', 'phone', 'email', 'password', 'role', 'city', 'location'];
 
 
-    public function martists()
+    public function localization()
     {
-       return $this->hasOne(Martist::class);
+       return $this->belongsTo(Localization::class);
     }
 
     /**

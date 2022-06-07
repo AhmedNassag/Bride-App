@@ -22,13 +22,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Phone</th>
-                                <th>Role</th>
-                                <th>City</th>
-                                <th>Location</th>
                                 <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Area</th>
+                                <th>Location</th>
+                                <th>Role</th>
+                                <th>Avatar</th>
                                 <th>EDIT</th>
                                 <th>DELETE</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

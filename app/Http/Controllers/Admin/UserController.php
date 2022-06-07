@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         $cities = Localization::where('parent_id',Null)->get();
         $locations = Localization::where('parent_id','!=',Null)->get();
-        return view('admin.users.create');
+        return view('admin.users.create',compact('cities','locations'));
     }
 
 

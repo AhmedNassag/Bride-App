@@ -76,42 +76,42 @@
                         <li class="{{'localizations'==request()->path() ? 'active' : ''}}">
                             <a href="/localizations">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Localizations</p>
+                                <p>Socials</p>
                             </a>
                         </li>
 
                         <li class="{{'addresses'==request()->path() ? 'active' : ''}}">
                             <a href="/addresses">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Addresses</p>
+                                <p>City</p>
                             </a>
                         </li>
 
                         <li class="{{'socialLinks'==request()->path() ? 'active' : ''}}">
                             <a href="/socialLinks">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Social Links</p>
+                                <p>Area</p>
                             </a>
                         </li>
 
                         <li class="{{'packages'==request()->path() ? 'active' : ''}}">
                             <a href="/packages">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Packages</p>
+                                <p>Location</p>
                             </a>
                         </li>
 
                         <li class="{{'services'==request()->path() ? 'active' : ''}}">
                             <a href="/services">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Services</p>
+                                <p>Packages</p>
                             </a>
                         </li>
 
                         <li class="{{'images'==request()->path() ? 'active' : ''}}">
                             <a href="/images">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Images</p>
+                                <p>Gallery</p>
                             </a>
                         </li>
 

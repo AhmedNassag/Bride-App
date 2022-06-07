@@ -14,35 +14,31 @@ class UserSeeder extends Seeder
     {
         User::create
         ([
-            'name'        => 'Ahmed Nabil',
-            'avatar'      => 'pic1.jpg',
-            'email'       => 'ahmednassag@gmail.com',
-            'password'    => bcrypt('0101685643320111993'),
-            'role'        => 0,
-            'city_id'     => 1,
-            'location_id' => 2
+            'name'     => 'Ahmed Nabil',
+            'email'    => 'ahmed@admin.com',
+            'password' => bcrypt('123456789'),
+            'avatar'   => 'pic1.jpg',
+            'role'     => 'Admin',
+            'status'   => 1,
         ]);
 
         User::create
         ([
-            'name'        => 'Ahmed Nassag',
-            'avatar'      => 'pic1.jpg',
-            'email'       => 'ahmednassag@yahoo.com',
-            'password'    => bcrypt('18199320111993'),
-            'role'        => 1,
-            'city_id'     => 1,
-            'location_id' => 2
+            'name'     => 'Ahmed Nabil',
+            'email'    => 'ahmednassag@gmail.com',
+            'password' => bcrypt('18199320111993'),
+            'avatar'   => 'pic1.jpg',
+            'role'     => 'MakeupArtist',
+            'status'   => 0,
         ]);
 
         User::create
         ([
-            'name'        => 'Ahmed Nabil',
-            'avatar'       => 'pic1.jpg',
-            'email'       => 'ahmednabil@yahoo.com',
-            'password'    => bcrypt('123456789'),
-            'role'        => 2,
-            'city_id'     => 1,
-            'location_id' => 2
+            'name'     => 'Ahmed Nassag',
+            'email'    => 'ahmednassag@yahoo.com',
+            'password' => bcrypt('20111993'),
+            'avatar'   => 'pic1.jpg',
+            'role'     => 'User',
         ]);
     }
 }

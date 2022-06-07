@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Phone;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
-class PhoneController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PhoneController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Phone $phone)
+    public function show(Location $location)
     {
         //
     }
@@ -52,10 +52,10 @@ class PhoneController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(Phone $phone)
+    public function edit(Location $location)
     {
         //
     }
@@ -64,10 +64,10 @@ class PhoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phone $phone)
+    public function update(Request $request, Location $location)
     {
         //
     }
@@ -75,10 +75,10 @@ class PhoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Phone $phone)
+    public function destroy(Location $location)
     {
         //
     }
