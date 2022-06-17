@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('address');
             $table->foreignId('area_id')->constraint('areas')->onUpdate('cascade');
+            $table->foreignId('city_id')->constraint('cities')->onUpdate('cascade');
             $table->foreignId('user_id')->constraint('users')->onUpdate('cascade');
             $table->timestamps();
         });

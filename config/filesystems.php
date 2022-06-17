@@ -58,7 +58,7 @@ return [
         'avatar' =>
         [
             'driver'     => 'local',
-            'root'       => base_path('public/assets/img/avatar'),
+            'root'       => base_path('public/avatar/'),
             'url'        => env('APP_URL').'public',
             'visibility' => 'public',
         ],
@@ -66,8 +66,8 @@ return [
         'gallery' =>
         [
             'driver'     => 'local',
-            'root'       => base_path('public/assets/img/gallery'),
-            'url'        => env('APP_URL').'/storage',
+            'root'       => base_path('public/gallery/'),
+            'url'        => env('APP_URL').'public',
             'visibility' => 'public',
         ],
 

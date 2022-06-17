@@ -73,56 +73,56 @@
                             </a>
                         </li>
 
-                        <li class="{{'localizations'==request()->path() ? 'active' : ''}}">
-                            <a href="/localizations">
+                        <li class="{{'socials'==request()->path() ? 'active' : ''}}">
+                            <a href="/socials">
                                 <i class="now-ui-icons location_map-big"></i>
                                 <p>Socials</p>
                             </a>
                         </li>
 
-                        <li class="{{'addresses'==request()->path() ? 'active' : ''}}">
-                            <a href="/addresses">
+                        <li class="{{'cities'==request()->path() ? 'active' : ''}}">
+                            <a href="/cities">
                                 <i class="now-ui-icons location_map-big"></i>
                                 <p>City</p>
                             </a>
                         </li>
 
-                        <li class="{{'socialLinks'==request()->path() ? 'active' : ''}}">
-                            <a href="/socialLinks">
+                        <li class="{{'areas'==request()->path() ? 'active' : ''}}">
+                            <a href="/areas">
                                 <i class="now-ui-icons location_map-big"></i>
                                 <p>Area</p>
+                            </a>
+                        </li>
+
+                        <li class="{{'locations'==request()->path() ? 'active' : ''}}">
+                            <a href="/locations">
+                                <i class="now-ui-icons location_map-big"></i>
+                                <p>Location</p>
                             </a>
                         </li>
 
                         <li class="{{'packages'==request()->path() ? 'active' : ''}}">
                             <a href="/packages">
                                 <i class="now-ui-icons location_map-big"></i>
-                                <p>Location</p>
-                            </a>
-                        </li>
-
-                        <li class="{{'services'==request()->path() ? 'active' : ''}}">
-                            <a href="/services">
-                                <i class="now-ui-icons location_map-big"></i>
                                 <p>Packages</p>
                             </a>
                         </li>
 
-                        <li class="{{'images'==request()->path() ? 'active' : ''}}">
-                            <a href="/images">
+                        <li class="{{'gallaries'==request()->path() ? 'active' : ''}}">
+                            <a href="/gallaries">
                                 <i class="now-ui-icons location_map-big"></i>
                                 <p>Gallery</p>
                             </a>
                         </li>
 
                         <li class="{{'abouts'==request()->path() ? 'active' : ''}}">
-                            <a href="/abouts">
+                            <a href="#">
                                 <i class="now-ui-icons ui-1_bell-53"></i>
                                 <p>About Us</p>
                             </a>
                         </li>
                         <li class="{{'role-register'==request()->path() ? 'active' : ''}}">
-                            <a href="/role-register">
+                            <a href="#">
                                 <i class="now-ui-icons users_single-02"></i>
                                 <p>User Profile</p>
                             </a>

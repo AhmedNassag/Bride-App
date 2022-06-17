@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Controller;
-use App\Models\Localization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Location;
+use App\Models\Package;
+use App\Models\Gallery;
+use App\Models\Social;
+use App\Models\Phone;
 use App\User;
 
 
@@ -13,29 +18,56 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role',2)->get();
-        return view('admin.users.index')->with('users',$users);
+        $users = User::where('role','User')->get();
+        return view('admin.users.index',compact('users'));
     }
+
+    public function show($id)
+    {
+        $user      = User::find($id);
+        $phones    = Phone::where('user_id',$user->id)->get();
+        $social    = Social::where('user_id',$user->id)->first();
+        $packages  = Package::where('user_id',$user->id)->get();
+        $galleries = Gallery::where('user_id',$user->id)->get();
+        $locations = Location::where('user_id',$user->id)->get();
+        return view('admin.users.show',compact('user','phones','social','packages','locations'));
+    }
+
 
     public function create()
     {
-        $cities = Localization::where('parent_id',Null)->get();
-        $locations = Localization::where('parent_id','!=',Null)->get();
-        return view('admin.users.create',compact('cities','locations'));
+        return view('admin.users.create');
     }
 
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'avatar'   => 'required|nullable|image|mimes:png,jpeg,jpg',
+        ]);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $file_name = 'no-avatar.png';
+        if($request->file('avatar'))
+        {
+            $file_extension = $request->avatar->getClientOriginalExtension();
+            $file_name      = time().'.'.$file_extension;
+            $path           = 'avatar';
+            $request->avatar->move($path,$file_name);
+        }
         $user = User::create
         ([
-            'name'     => $request -> name,
-            'phone'    => $request -> phone,
-            'role'     => $request -> role,
-            'city'     => $request -> city,
-            'location' => $request -> location,
-            'email'    => $request -> email,
-            'password' => encrypt($request -> password),
+            'name'        => $request -> name,
+            'email'       => $request -> email,
+            'password'    => encrypt($request -> password),
+            'role'        => $request -> role,
+            'avatar'      => $file_name,
         ]);
         if($user)
         {
@@ -53,9 +85,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $cities = Localization::where('parent_id',Null)->get();
-        $locations = Localization::where('parent_id','!=',Null)->get();
-        return view('admin.users.edit',compact('user','cities','locations'));
+        return view('admin.users.edit',compact('user'));
     }
 
 
@@ -66,17 +96,33 @@ class UserController extends Controller
         {
             return redirect()->back();
         }
+        $validator = Validator::make($request->all(),
+        [
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email',
+            'password' => 'required|min:6',
+            'avatar'   => 'required|nullable|image|mimes:png,jpeg,jpg',
+        ]);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $file_name = $user->avatar;
+        if($request->file('avatar'))
+        {
+            $file_extension = $request->avatar->getClientOriginalExtension();
+            $file_name      = time().'.'.$file_extension;
+            $path           = 'avatar';
+            $request->avatar->move($path,$file_name);
+        }
         $user -> update
         ([
             'name'     => $request -> name,
-            'phone'    => $request -> phone,
-            'role'     => $request -> role,
-            'city'     => $request -> city,
-            'location' => $request -> location,
             'email'    => $request -> email,
-            'password' => $request -> password,
+            'password' => encrypt($request -> password),
+            'role'     => $request -> role,
+            'avatar'   => $file_name,
         ]);
-
         if($user)
         {
         Session::flash('statuscode','success');
@@ -95,5 +141,91 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user ->delete();
         return response()->json(['status' => 'Data Deleted Successfully']);
+    }
+
+
+    public function change($id)
+    {
+        $user = User::find($id);
+        if ($user->status !== '1')
+        {
+            $user->update(['status' => 1]);
+        }
+        else
+        {
+            $user->update(['status' => 2]);
+        }
+        if($user)
+        {
+            Session::flash('statuscode','success');
+            return redirect('/users')->with('status','Data Updated Successfully');
+        }
+        else
+        {
+            Session::flash('statuscode','error');
+            return redirect('/users')->with('status','Data Not Updated');
+        }
+    }
+
+
+    public function changeToAdmin($id)
+    {
+        $user = User::findOrFail($id);
+        if(! $user)
+        {
+            return redirect()->back();
+        }
+        $user->update(['role' => 'Admin']);
+        if($user)
+        {
+            Session::flash('statuscode','success');
+            return redirect('/users')->with('status','Data Updated Successfully');
+        }
+        else
+        {
+            Session::flash('statuscode','error');
+            return redirect('/users')->with('status','Data Not Updated');
+        }
+    }
+
+
+    public function changeToUser($id)
+    {
+        $user = User::findOrFail($id);
+        if(! $user)
+        {
+            return redirect()->back();
+        }
+        $user->update(['role' => 'User']);
+        if($user)
+        {
+            Session::flash('statuscode','success');
+            return redirect('/users')->with('status','Data Updated Successfully');
+        }
+        else
+        {
+            Session::flash('statuscode','error');
+            return redirect('/users')->with('status','Data Not Updated');
+        }
+    }
+
+    public function changeToMakeupArtist($id)
+    {
+        $user = User::findOrFail($id);
+        if(! $user)
+        {
+            return redirect()->back();
+        }
+        $user->update(['role' => 'MakeupArtist']);
+        if($user)
+        {
+            Session::flash('statuscode','success');
+            return redirect('/users')->with('status','Data Updated Successfully');
+        }
+        else
+        {
+            Session::flash('statuscode','error');
+            return redirect('/users')->with('status','Data Not Updated');
+        }
     }
 }

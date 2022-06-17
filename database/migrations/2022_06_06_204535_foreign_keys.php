@@ -32,15 +32,6 @@ class ForeignKeys extends Migration
         });
 
 
-        Schema::table('areas',  function(Blueprint $table)
-        {
-            $table->foreign('city_id')
-            ->references('id')
-            ->on('cities')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-        });
-
         Schema::table('packages',  function(Blueprint $table)
         {
             $table->foreign('user_id')
@@ -86,7 +77,14 @@ class ForeignKeys extends Migration
             ->onDelete('cascade');
         });
 
-
+        Schema::table('locations',  function(Blueprint $table)
+        {
+            $table->foreign('city_id')
+            ->references('id')
+            ->on('cities')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
 
     }
 

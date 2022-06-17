@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Users
+    Admins
 @endsection
 
 
@@ -20,46 +20,76 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>City</th>
-                                <th>Area</th>
-                                <th>Location</th>
-                                <th>Role</th>
-                                <th>Avatar</th>
-                                <th>EDIT</th>
-                                <th>DELETE</th>
-                                <th>Action</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Avatar</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Role</th>
+                                <th class="text-center">Change To</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $i=0; @endphp
                             @foreach($admins as $row)
                             @php $i++; @endphp
-                                <tr>
-                                    <input type="hidden" class="adminDelBtn" value="{{$row->id}}">
-                                    <td>{{$i}}</td>
-                                    <td>{{$row->name}}</td>
-                                    <td>{{$row->phone}}</td>
-                                    <td>
-                                        <?php
-                                            if($row->role == 0) {echo'Admin';}
-                                            elseif($row->role == 1) {echo'Makeup Artist';}
-                                            else {echo'User';}
-                                        ?>
-                                    </td>
-                                    <td>{{$row->city}}</td>
-                                    <td>{{$row->location}}</td>
-                                    <td>{{$row->email}}</td>
-                                    <td>
-                                        <a href="{{url('admin-edit/'.$row->id)}}" class="btn btn-info">EDIT</a>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger adminDeleteBtn">DELETE</button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <input type="hidden" class="adminDelBtn" value="{{$row->id}}">
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center">
+                                    <img src="{{asset('avatar/'.$row->avatar)}}" alt="image"  style="border-radius:10px; border-style:dot-dot-dash; width:60px; height:60px">
+                                </td>
+                                <td class="text-center"><a href="{{url('admin-show/'.$row->id)}}" style="color: #1f1f1f">{{$row->name}}</a></td>
+                                <td class="text-center">{{$row->email}}</td>
+                                <td class="text-center">{{$row->role}}</td>
+                                <td class="text-center">
+                                    @if($row->role == 'Admin')
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-makeupArtist/'.$row->id)}}" class="dropdown-item btn btn-sm btn-warning"><i class="fa fa-female"></i> Makeup Artist</a>
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-user/'.$row->id)}}" class="dropdown-item btn btn-sm btn-info"><i class="fa fa-user"></i> User</a>
+                                        </div>
+                                    </div>
+                                    @elseif($row->role == 'MakeupArtist')
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-admin/'.$row->id)}}" class="dropdown-item btn btn-sm btn-success"><i class="fa fa-user-secret"></i> Admin</a>
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-user/'.$row->id)}}" class="dropdown-item btn btn-sm btn-info"><i class="fa fa-user"></i> User</a>
+                                        </div>
+                                    </div>
+                                    @else
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-admin/'.$row->id)}}" class="dropdown-item btn btn-sm btn-success"><i class="fa fa-user-secret"></i> Admin</a>
+                                            <a style="margin: 5px 0" href="{{url('admin-changeTo-makeupArtist/'.$row->id)}}" class="dropdown-item btn btn-sm btn-warning"><i class="fa fa-female"></i> Makeup Artist</a>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                </td>
+                                <td class="text-center">
+                                    @if($row->status == 0)
+                                    <span class="label-default" style="color:aliceblue; background-color:dimgray">UnActive</span>
+                                    @elseif($row->status == 1)
+                                    <span class="label-success" style="color:aliceblue; background-color:limegreen">Active</span>
+                                    @else($row->status == 3)
+                                    <span class="label-danger" style="color:aliceblue; background-color:red">Blocked</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{url('admin-edit/'.$row->id)}}" class="btn btn-info btn-sm">EDIT</a>
+                                    <button type="button" class="btn btn-danger btn-sm adminDeleteBtn">DELETE</button>
+                                    @if($row->status == 1)
+                                    <a style="margin: 5px 0" href="{{url('admin-change/'.$row->id)}}" class="btn btn-adn btn-sm"><i class="fa fa-times-circle"></i>Block</a>
+                                    @else
+                                    <a style="margin: 5px 0" href="{{url('admin-change/'.$row->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>Active</a>
+                                    @endif
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

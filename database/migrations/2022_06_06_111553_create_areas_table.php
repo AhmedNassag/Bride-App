@@ -16,7 +16,6 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('city_id')->constraint('cities')->onUpdate('cascade');
             $table->timestamps();
         });
     }

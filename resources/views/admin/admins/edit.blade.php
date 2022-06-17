@@ -17,52 +17,30 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('/admin-update/'.$admin->id)}}" method="POST" enctype="multipart/form-data">
+                    @if($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li class="alert alert-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{session()->get('success')}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    <form action="{{url('admin-update/'.$admin->id)}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter Name" value="{{$admin->name}}">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label>Avatar</label>
-                                <input type="file" name="avatar" class="form-control" value="{{$admin->avatar}}">
-                            </div>
-
-                            <!-- select -->
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Role</label>
-                                    <select name="role" class="form-control" value="{{$admin->role}}">
-                                        <option value="0">Admin</option>
-                                        <option value="1">Makeup Artist</option>
-                                        <option value="2">User</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <select name="city_id" class="form-control" value="{{$admin->city_id}}">
-                                        @foreach($cities as $city)
-                                        <option value="{{$city->id}}">{{$city->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <select name="location_id" class="form-control" value="{{$admin->location_id}}">
-                                        @foreach($locations as $location)
-                                        <option value="{{$location->id}}">{{$location->name}}</option>';
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
 
@@ -78,6 +56,23 @@
                                     <label>Password</label>
                                     <input type="password" name="password" class="form-control" placeholder="Enter Password" value="{{$admin->password}}">
                                 </div>
+                            </div>
+
+                            <!-- select -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <select name="role" class="form-control">
+                                        <option value="Admin">Admin</option>
+                                        <option value="Makeup Artist">Makeup Artist</option>
+                                        <option value="User">User</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Avatar</label>
+                                <input type="file" name="avatar" class="form-control">
                             </div>
 
                             <div class="col-md-12">

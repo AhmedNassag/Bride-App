@@ -20,33 +20,71 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Avatar</th>
-                                <th>Role</th>
-                                <th>City</th>
-                                <th>Location</th>
-                                <th>Email</th>
-                                <th>EDIT</th>
-                                <th>DELETE</th>
+                                <th class="text-center">Avatar</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Phone</th>
+                                <th class="text-center">Social</th>
+                                <th class="text-center">Location</th>
+                                <th class="text-center">Packages</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                    <input type="hidden" class="userDelBtn" value="{{$row->id}}">
-                                    <td>1</td>
-                                    <td>{{$row->name}}</td>
-                                    <td><img src="{{asset('assets/img/avatar/'.$admin->avatar)}}" height="55px" width="55px"></td>
-                                    <td>Admin</td>
-                                    <td>{{$admin->email}}</td>
-                                    <td>
-                                        <a href="{{url('admin-edit/'.$admin->id)}}" class="btn btn-info">EDIT</a>
+                                    <input type="hidden" class="userDelBtn" value="{{$admin->id}}">
+                                    <td class="text-center">
+                                        <img src="{{asset('avatar/'.$admin->avatar)}}" height="55px" width="55px">
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger adminDeleteBtn">DELETE</button>
+                                    <td class="text-center">{{$admin->name}}</td>
+                                    <td class="text-center">{{$admin->email}}</td>
+                                    <td class="text-center">
+                                        @if($phones)
+                                            @foreach($phones as $phone)
+                                            <ul>
+                                                <li>{{$phone->number}}</li>
+                                            </ul>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($social)
+                                        <ul>
+                                            <li>{{$social->facebook}}</li>
+                                            <li>{{$social->instgram}}</li>
+                                            <li>{{$social->tiktok}}</li>
+                                            <li>{{$social->website}}</li>
+                                        </ul>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($locations)
+                                            @foreach($locations as $location)
+                                            <ul>
+                                                <li>{{$location->address}}, {{$location->area->name}}, {{$location->city->name}}</li>
+                                            </ul>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($packages)
+                                            @foreach($packages as $package)
+                                            <ul>
+                                                <li><a href="{{url('package-show/'.$package->id)}}" style="color: #1f1f1f">{{$package->name}}</a></li>
+                                            </ul>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                    @if($admin->status == 1)
+                                    <a href="{{url('admin-change/'.$admin->id)}}" class="btn btn-adn btn-sm"><i class="fa fa-times-circle"></i>Block</a>
+                                    @else
+                                    <a href="{{url('admin-change/'.$admin->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>Active</a>
+                                    @endif
+                                        <!-- <a style="margin: 5px 0" href="{{url('admin-edit/'.$admin->id)}}" class="btn btn-sm btn-info">EDIT</a>
+                                        <button type="button" class="btn btn-sm btn-danger adminDeleteBtn">DELETE</button> -->
                                     </td>
                                 </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
