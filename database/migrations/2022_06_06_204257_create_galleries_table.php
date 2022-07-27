@@ -16,7 +16,7 @@ class CreateGalleriesTable extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->foreignId('package_id')->constraint('package_id')->onUpdate('cascade');
+            $table->foreignId('package_id')->constraint('packages')->onUpdate('cascade');
             $table->foreignId('user_id')->constraint('users')->onUpdate('cascade');
             $table->timestamps();
         });
